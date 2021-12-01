@@ -382,7 +382,8 @@ class TestScheduler(RQTestCase):
         self.assertTrue(job.enqueued_at is not None)
         queue = scheduler.get_queue_for_job(job)
         self.assertIn(job, queue.jobs)
-        queue = Queue.from_queue_key('rq:queue:{0}'.format(queue_name))
+        qn = '%s:rq:queue:{0}' % os.getenv('B_HOSTNAME', '')
+        queue = Queue.from_queue_key(qn.format(queue_name))
         self.assertIn(job, queue.jobs)
         self.assertIn(queue, Queue.all())
 

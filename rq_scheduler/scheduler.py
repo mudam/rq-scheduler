@@ -22,10 +22,10 @@ logger = logging.getLogger(__name__)
 
 
 class Scheduler(object):
-    redis_scheduler_namespace_prefix = 'rq:scheduler_instance:'
-    scheduler_key = 'rq:scheduler'
-    scheduler_lock_key = 'rq:scheduler_lock'
-    scheduled_jobs_key = 'rq:scheduler:scheduled_jobs'
+    redis_scheduler_namespace_prefix = '%s:rq:scheduler_instance:' % os.getenv('B_HOSTNAME', '')
+    scheduler_key = '%s:rq:scheduler' % os.getenv('B_HOSTNAME', '')
+    scheduler_lock_key = '%s:rq:scheduler_lock' % os.getenv('B_HOSTNAME', '')
+    scheduled_jobs_key = '%s:rq:scheduler:scheduled_jobs' % os.getenv('B_HOSTNAME', '')
     queue_class = Queue
     job_class = Job
 
